@@ -1,0 +1,303 @@
+/* ============================================================
+   JUEGO BATALLA POKÉMON — HOJA DE ESTILOS UNIFICADA
+   Organizada por Componente para facilitar su lectura y defensa
+   ============================================================ */
+
+/* 1. RESET Y ESTILOS BASE */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.oculto {
+  display: none !important;
+}
+
+/* 2. BOTONES GENERALES */
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: background-color 0.2s ease;
+}
+
+/* Botones Rojos (Combatir y Volver al inicio) */
+#btn-combatir, 
+#btn-resultado-continuar {
+  padding: 10px 30px;
+  font-size: 1rem;
+  border-radius: 8px;
+  background-color: #e74c3c;
+  color: #fff;
+}
+#btn-combatir:hover:not(:disabled), 
+#btn-resultado-continuar:hover {
+  background-color: #c0392b;
+}
+#btn-combatir:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+/* Botones Grises (Ver, Cerrar, Rendirse) */
+.btn-ver,
+#btn-cerrar-ver,
+#btn-cerrar-poder,
+#btn-rendirse {
+  background-color: #e0e0e0;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 5px 12px;
+}
+.btn-ver:hover,
+#btn-cerrar-ver:hover,
+#btn-cerrar-poder:hover,
+#btn-rendirse:hover {
+  background-color: #ccc;
+}
+#btn-cerrar-ver,
+#btn-cerrar-poder,
+#btn-rendirse {
+  padding: 8px 20px;
+  border-radius: 6px;
+}
+#btn-rendirse {
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+/* 3. VISTA INICIO (SELECCIÓN) */
+#vista-inicio {
+  text-align: center;
+}
+#vista-inicio h1 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+#contenedor-tarjetas {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Tarjetas de Pokémon */
+.tarjeta {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  width: 160px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.tarjeta img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+.tarjeta p {
+  font-weight: bold;
+}
+
+/* 4. MODALES (Ver/Editar, Poderes y Resultado) */
+
+/* Fondo oscuro común */
+#modal-ver,
+#modal-poder,
+#modal-resultado {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#modal-resultado {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Caja de contenido común */
+#modal-ver-contenido,
+#modal-poder-contenido,
+#modal-resultado-contenido {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Ajustes particulares para Modal Ver */
+.modal-poder-fila {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+#modal-ver-botones {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+#btn-guardar {
+  background-color: #27ae60;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 6px;
+}
+#btn-guardar:hover {
+  background-color: #1e8449;
+}
+
+/* Ajustes particulares para Modal Poderes */
+.btn-poder {
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  background-color: #f5f5f5;
+  font-size: 0.95rem;
+}
+.btn-poder:hover:not(:disabled) {
+  background-color: #ddd;
+}
+.btn-poder:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  background-color: #f0f0f0;
+}
+
+/* Ajustes particulares para Modal Resultado */
+#modal-resultado-contenido {
+  border-radius: 12px;
+  padding: 35px 30px;
+  max-width: 340px;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+#resultado-emoji { font-size: 3rem; line-height: 1; }
+#resultado-titulo { font-size: 1.5rem; margin: 0; }
+#resultado-descripcion { color: #555; font-size: 0.95rem; }
+
+/* 5. VISTA COMBATE */
+#vista-combate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  position: relative;
+}
+#area-rival   { align-self: flex-end;   text-align: center; margin-bottom: auto; }
+#area-usuario { align-self: flex-start; text-align: center; margin-top: auto; }
+
+#area-rival img,
+#area-usuario img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+#mensaje-turno {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+#botones-combate {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+#btn-lanzar-poder {
+  padding: 10px 20px;
+  background-color: #2980b9;
+  color: #fff;
+  border-radius: 8px;
+}
+#btn-lanzar-poder:hover:not(:disabled) {
+  background-color: #1f618d;
+}
+#btn-lanzar-poder:disabled {
+  background-color: #bbb;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* 6. ANIMACIÓN DE ATAQUE */
+.animacion-ataque {
+  animation: atacar 0.5s ease;
+}
+@keyframes atacar {
+  0%   { transform: scale(1);    filter: brightness(1); }
+  25%  { transform: scale(1.15); filter: brightness(1.5) hue-rotate(30deg); }
+  50%  { transform: scale(0.9);  filter: brightness(0.7); }
+  75%  { transform: scale(1.1);  filter: brightness(1.3) hue-rotate(-20deg); }
+  100% { transform: scale(1);    filter: brightness(1); }
+}
+
+/* 7. RESPONSIVE DESIGN */
+
+/* Tablet (≤ 768px) */
+@media (max-width: 768px) {
+  #contenedor-tarjetas { gap: 15px; }
+  .tarjeta { width: 140px; }
+  .tarjeta img { width: 85px; height: 85px; }
+  #modal-ver-contenido, 
+  #modal-poder-contenido { max-width: 90%; padding: 20px; }
+  #area-rival img, 
+  #area-usuario img { width: 100px; height: 100px; }
+}
+
+/* Móvil (≤ 480px) */
+@media (max-width: 480px) {
+  body { padding: 12px; }
+  #vista-inicio h1 { font-size: 1.3rem; margin-bottom: 15px; }
+
+  #contenedor-tarjetas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    justify-items: center;
+  }
+  .tarjeta { width: 100%; max-width: 160px; padding: 10px; }
+  .tarjeta img { width: 70px; height: 70px; }
+  #btn-combatir { width: 100%; padding: 12px; font-size: 1rem; }
+
+  #modal-ver-contenido, 
+  #modal-poder-contenido {
+    width: 95%; max-width: 95%; padding: 15px;
+    max-height: 90vh; overflow-y: auto;
+  }
+
+  #vista-combate {
+    align-items: center; gap: 10px; min-height: 85vh;
+    justify-content: space-between; padding: 10px 0;
+  }
+  #area-rival, 
+  #area-usuario { align-self: center; text-align: center; margin: 0; }
+  #area-rival img, 
+  #area-usuario img { width: 110px; height: 110px; }
+
+  #botones-combate { flex-direction: column; width: 100%; gap: 10px; }
+  #btn-rendirse, 
+  #btn-lanzar-poder { width: 100%; padding: 12px; font-size: 1rem; }
+
+  #modal-poder-contenido { display: flex; flex-direction: column; gap: 10px; }
+  .btn-poder { width: 100%; padding: 12px; font-size: 0.95rem; text-align: left; }
+}

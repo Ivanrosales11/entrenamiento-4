@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Batalla Pokémon</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== VISTA INICIO ===== -->
+  <div id="vista-inicio">
+    <h1>Elige la criatura para jugar</h1>
+
+    <div id="contenedor-tarjetas">
+
+      <!-- Tarjeta 0: Bulbasaur -->
+      <div class="tarjeta" id="tarjeta-0">
+        <img src="assets/bulbasaur.png" alt="Bulbasaur" id="img-0" />
+        <p id="nombre-0">Bulbasaur</p>
+        <button class="btn-ver" data-indice="0">Ver</button>
+        <label>
+          <input type="radio" name="pokemon-seleccionado" value="0" id="radio-0" />
+          Elegir
+        </label>
+      </div>
+
+      <!-- Tarjeta 1: Charmander -->
+      <div class="tarjeta" id="tarjeta-1">
+        <img src="assets/charmander.png" alt="Charmander" id="img-1" />
+        <p id="nombre-1">Charmander</p>
+        <button class="btn-ver" data-indice="1">Ver</button>
+        <label>
+          <input type="radio" name="pokemon-seleccionado" value="1" id="radio-1" />
+          Elegir
+        </label>
+      </div>
+
+      <!-- Tarjeta 2: Squirtle -->
+      <div class="tarjeta" id="tarjeta-2">
+        <img src="assets/squirtle.png" alt="Squirtle" id="img-2" />
+        <p id="nombre-2">Squirtle</p>
+        <button class="btn-ver" data-indice="2">Ver</button>
+        <label>
+          <input type="radio" name="pokemon-seleccionado" value="2" id="radio-2" />
+          Elegir
+        </label>
+      </div>
+
+      <!-- Tarjeta 3: Pikachu -->
+      <div class="tarjeta" id="tarjeta-3">
+        <img src="assets/pikachu.png" alt="Pikachu" id="img-3" />
+        <p id="nombre-3">Pikachu</p>
+        <button class="btn-ver" data-indice="3">Ver</button>
+        <label>
+          <input type="radio" name="pokemon-seleccionado" value="3" id="radio-3" />
+          Elegir
+        </label>
+      </div>
+
+    </div><!-- /contenedor-tarjetas -->
+
+    <button id="btn-combatir" disabled>Combatir</button>
+  </div><!-- /vista-inicio -->
+
+
+  <!-- ===== MODAL VER / EDITAR ===== -->
+  <div id="modal-ver" class="oculto">
+    <div id="modal-ver-contenido">
+      <img id="modal-img" src="" alt="Pokemon" />
+      <label>
+        Nombre:
+        <input type="text" id="modal-nombre" />
+      </label>
+
+      <h3>Poderes</h3>
+
+      <!-- Poder 0 -->
+      <div class="modal-poder-fila">
+        <label>Nombre: <input type="text" id="modal-poder0-nombre" /></label>
+        <label>Usos: <input type="number" id="modal-poder0-usos" min="0" /></label>
+        <label>Energía (daño): <input type="number" id="modal-poder0-energia" min="0" /></label>
+      </div>
+
+      <!-- Poder 1 -->
+      <div class="modal-poder-fila">
+        <label>Nombre: <input type="text" id="modal-poder1-nombre" /></label>
+        <label>Usos: <input type="number" id="modal-poder1-usos" min="0" /></label>
+        <label>Energía (daño): <input type="number" id="modal-poder1-energia" min="0" /></label>
+      </div>
+
+      <!-- Poder 2 -->
+      <div class="modal-poder-fila">
+        <label>Nombre: <input type="text" id="modal-poder2-nombre" /></label>
+        <label>Usos: <input type="number" id="modal-poder2-usos" min="0" /></label>
+        <label>Energía (daño): <input type="number" id="modal-poder2-energia" min="0" /></label>
+      </div>
+
+      <h3>Estadísticas</h3>
+      <p id="modal-stats">Combates: 0 | Ganados: 0 | Perdidos: 0</p>
+
+      <div id="modal-ver-botones">
+        <button id="btn-guardar">Guardar</button>
+        <button id="btn-cerrar-ver">Cerrar</button>
+      </div>
+    </div>
+  </div><!-- /modal-ver -->
+
+
+  <!-- ===== VISTA COMBATE ===== -->
+  <div id="vista-combate" class="oculto">
+
+    <!-- Rival (arriba a la derecha) -->
+    <div id="area-rival">
+      <p id="nombre-rival">Rival</p>
+      <img id="img-rival" src="" alt="Rival" />
+      <p>Energía: <span id="vida-rival">100</span>%</p>
+    </div>
+
+    <!-- Mensaje de turno -->
+    <div id="mensaje-turno"></div>
+
+    <!-- Usuario (abajo a la izquierda) -->
+    <div id="area-usuario">
+      <p id="nombre-usuario">Usuario</p>
+      <img id="img-usuario" src="" alt="Usuario" />
+      <p>Energía: <span id="vida-usuario">100</span>%</p>
+    </div>
+
+    <!-- Botones de combate -->
+    <div id="botones-combate">
+      <button id="btn-rendirse">Rendirme</button>
+      <button id="btn-lanzar-poder">Lanzar poder</button>
+    </div>
+
+  </div><!-- /vista-combate -->
+
+
+  <!-- ===== MODAL PODERES ===== -->
+  <div id="modal-poder" class="oculto">
+    <div id="modal-poder-contenido">
+      <h3>Elegí un poder</h3>
+      <button id="btn-poder-0" class="btn-poder">-</button>
+      <button id="btn-poder-1" class="btn-poder">-</button>
+      <button id="btn-poder-2" class="btn-poder">-</button>
+      <button id="btn-cerrar-poder">Cerrar</button>
+    </div>
+  </div><!-- /modal-poder -->
+
+
+  <!-- ===== MODAL RESULTADO ===== -->
+  <div id="modal-resultado" class="oculto">
+    <div id="modal-resultado-contenido">
+      <p id="resultado-emoji">🏆</p>
+      <h2 id="resultado-titulo">¡Ganaste!</h2>
+      <p id="resultado-descripcion"></p>
+      <button id="btn-resultado-continuar">Volver al inicio</button>
+    </div>
+  </div><!-- /modal-resultado -->
+
+
+  <script type="module" src="./js/script.js"></script>
+</body>
+</html>
