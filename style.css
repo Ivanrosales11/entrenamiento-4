@@ -166,6 +166,13 @@ button {
   gap: 10px;
   justify-content: center;
 }
+#modal-error {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 5px 0 0 0;
+}
 #btn-guardar {
   background-color: #27ae60;
   color: #fff;

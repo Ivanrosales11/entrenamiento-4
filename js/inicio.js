@@ -45,21 +45,53 @@ export function inicializarInicio(alCombatir) {
     botonesVer[v].addEventListener("click", alClickVerPokemon);
   }
 
-  // Botón "Guardar": guardar los cambios del modal en el array y en localStorage
+  // Botón "Guardar": guardar los cambios del modal en el array y en localStorage (con validación completa)
   function alGuardarModal() {
     const pk = pokemons[indiceModalAbierto];
+    const errorEl = document.getElementById("modal-error");
 
-    pk.nombre = document.getElementById("modal-nombre").value;
+    // Validar nombre del pokémon
+    const nuevoNombre = document.getElementById("modal-nombre").value.trim();
+    if (nuevoNombre === "") {
+      errorEl.textContent = "El nombre del Pokémon no puede estar vacío.";
+      errorEl.classList.remove("oculto");
+      return;
+    }
 
+    // Validar cada poder antes de guardar nada
+    const nuevosPoderes = [];
     for (let k = 0; k < pk.poderes.length; k++) {
-      pk.poderes[k].nombre = document.getElementById(`modal-poder${k}-nombre`).value;
+      const nomPoder = document.getElementById(`modal-poder${k}-nombre`).value.trim();
+      const usos     = parseInt(document.getElementById(`modal-poder${k}-usos`).value);
+      const energia  = parseInt(document.getElementById(`modal-poder${k}-energia`).value);
 
-      // Si el campo queda vacío, parseInt devuelve NaN → conservamos el valor anterior
-      const usos    = parseInt(document.getElementById(`modal-poder${k}-usos`).value);
-      const energia = parseInt(document.getElementById(`modal-poder${k}-energia`).value);
+      if (nomPoder === "") {
+        errorEl.textContent = "Los nombres de los poderes no pueden estar vacíos.";
+        errorEl.classList.remove("oculto");
+        return;
+      }
 
-      pk.poderes[k].usos    = Number.isNaN(usos)    ? pk.poderes[k].usos    : usos;
-      pk.poderes[k].energia = Number.isNaN(energia)  ? pk.poderes[k].energia : energia;
+      if (Number.isNaN(usos) || usos <= 0) {
+        errorEl.textContent = "Los usos de los poderes deben ser mayores a 0.";
+        errorEl.classList.remove("oculto");
+        return;
+      }
+
+      if (Number.isNaN(energia) || energia <= 0) {
+        errorEl.textContent = "La energía (daño) de los poderes debe ser mayor a 0.";
+        errorEl.classList.remove("oculto");
+        return;
+      }
+
+      nuevosPoderes.push({ nombre: nomPoder, usos, energia });
+    }
+
+    // Si todo es válido, aplicar los cambios en memoria
+    pk.nombre = nuevoNombre;
+    for (let k = 0; k < pk.poderes.length; k++) {
+      pk.poderes[k].nombre  = nuevosPoderes[k].nombre;
+      pk.poderes[k].usos    = nuevosPoderes[k].usos;
+      pk.poderes[k].energia = nuevosPoderes[k].energia;
     }
 
     guardarStorage(indiceModalAbierto);
@@ -106,6 +138,11 @@ export function mostrarInicio() {
 function abrirModal(indice) {
   indiceModalAbierto = indice;
   const pk = pokemons[indice];
+
+  // Ocultar mensajes de error previos
+  const errorEl = document.getElementById("modal-error");
+  errorEl.classList.add("oculto");
+  errorEl.textContent = "";
 
   document.getElementById("modal-img").src      = urlImagen(indice);
   document.getElementById("modal-nombre").value = pk.nombre;
