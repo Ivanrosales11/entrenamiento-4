@@ -140,6 +140,8 @@ button {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 /* Ajustes particulares para Modal Ver */
@@ -282,7 +284,6 @@ button {
   #modal-ver-contenido, 
   #modal-poder-contenido {
     width: 95%; max-width: 95%; padding: 15px;
-    max-height: 90vh; overflow-y: auto;
   }
 
   #vista-combate {
