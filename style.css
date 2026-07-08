@@ -128,6 +128,14 @@ button {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+/* Imagen del pokémon dentro del modal */
+#modal-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  align-self: center;
+}
+
 /* Caja de contenido común */
 #modal-ver-contenido,
 #modal-poder-contenido,
